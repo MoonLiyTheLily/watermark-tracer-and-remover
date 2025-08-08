@@ -38,7 +38,7 @@ pip instal -r requirements.txt
 
 模型必须下载到项目下名为lama_modelscope的文件夹
 ```
-modelscope download --model iic/cv_fft_inpainting_lama README.md --local_dir ./lama_modelscope
+modelscope download --model iic/cv_fft_inpainting_lama --local_dir ./lama_modelscope
 ```
 
 ### 运行
