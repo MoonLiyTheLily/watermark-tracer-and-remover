@@ -1,6 +1,6 @@
 # Watermark-Tracer-and-Remover
 
-课程小项目。使用了一个基于 yolov5 的可视水印检测项目（见下文 Watermark-Tracer 标题）和论文 _LaMa Image Inpainting, Resolution-robust Large Mask Inpainting with Fourier Convolutions, WACV 2022_ 中算法的一个第三方打包项目
+课程小项目。使用了一个基于 yolov5 的可视水印检测项目（见下文 Watermark-Tracer 标题）和论文 _LaMa Image Inpainting, Resolution-robust Large Mask Inpainting with Fourier Convolutions, WACV 2022_ 中算法的一个打包项目
 
 （本 README 在第一个项目的 README 上写就）
 
@@ -8,9 +8,9 @@
 
 [(Original) LaMa](https://github.com/advimman/lama)
 
-[(3rd Party) Simple-LaMa](https://github.com/enesmsahin/simple-lama-inpainting)
+[LaMa on Modelscope](https://www.modelscope.cn/models/iic/cv_fft_inpainting_lama/summary)
 
-项目中含有上述项目已经训练好的引擎（yolov5 下一个，lama_modelscope 下一个）
+项目中含有YOLOv5已经训练好的模型，但不含有LaMa模型。
 
 效果图没找到看起来比较稳的图床随作罢
 
