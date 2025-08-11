@@ -48,7 +48,7 @@ modelscope download --model iic/cv_fft_inpainting_lama --local_dir ./lama_models
 ```
 conda activate wm_trace
 
-python trace_and_remove.py -m （文件名）
+python trace_and_remove.py -m （文件名） -s(可选，是否显示对水印检测的结果)
 ```
 
 程序会提示是否检测到水印，也会提示文件存放在何处和文件的名字。

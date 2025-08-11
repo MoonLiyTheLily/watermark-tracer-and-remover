@@ -14,7 +14,7 @@ import matplotlib.pyplot as plt
 import numpy as np
 import pandas as pd
 
-# import skimage.draw as draw
+import skimage.draw as draw
 
 import torch
 from PIL import Image, ImageTk
@@ -203,6 +203,7 @@ if __name__ == "__main__":
         help="输入图片路径，如没有则调用对话框进行选择",
     )
     parser.add_argument("--no_tk", action="store_true", help="是否使用tkinter，一般不需要带此参数")
+    parser.add_argument("-s","--show",action="store_true",help="是否展示水印检测的结果")
     
     # 百度API溯源用的参数，不需要了，所以就删掉了
     # parser.add_argument("--no_api", action="store_true", help="是否使用百度API")
@@ -352,35 +353,42 @@ if __name__ == "__main__":
 # print(output)
 
 # 展示功能，已经用原始的OpenCV代替
-# # 展示
-# new_img = np.array(imgs[0])
-# for point in box:
-#     rr, cc = draw.rectangle_perimeter(point[:2], end=point[2:], shape=imgs[0].size)
-#     new_img[cc, rr] = (0, 255, 255)
-# new_img = Image.fromarray(new_img)
+# 展示
+if args.show is True:
+    new_img = np.array(imgs[0])
+    for point in box:
+        rr, cc = draw.rectangle_perimeter(point[:2], end=point[2:], shape=imgs[0].size)
+        new_img[cc, rr] = (0, 255, 255)
+    new_img = Image.fromarray(new_img)
 
-# if args.no_tk is False:
-#     root = tk.Tk()  # 创建一个Tkinter.Tk()实例
-#     frame_l = tk.Frame(master=root, relief=tk.RAISED, borderwidth=1)
-#     frame_l.grid(row=0, column=0)
-#     _new_img = new_img.resize((int(new_img.width / new_img.height * 400), 400))
-#     _source_photo = ImageTk.PhotoImage(_new_img)
-#     label1 = tk.Label(master=frame_l, image=_source_photo)
-#     label1.pack()
+    if args.no_tk is False:
+        root = tk.Tk()  # 创建一个Tkinter.Tk()实例
+        frame_l = tk.Frame(master=root, relief=tk.RAISED, borderwidth=1)
+        frame_l.grid(row=0, column=0)
+        _new_img = new_img.resize((int(new_img.width / new_img.height * 400), 400))
+        _source_photo = ImageTk.PhotoImage(_new_img)
+        label1 = tk.Label(master=frame_l, image=_source_photo)
+        label1.pack()
 
-#     frame_r = tk.Frame(master=root, relief=tk.RAISED, borderwidth=1)
-#     frame_r.grid(row=0, column=1)
-#     _test_wm = Image.fromarray(test_wm)
-#     _photo = ImageTk.PhotoImage(_test_wm)
-#     label2 = tk.Label(master=frame_r, image=_photo, bg='gray')
-#     label2.grid(row=0, column=0)
-#     label3 = tk.Label(master=frame_r, text=output, justify=tk.LEFT, wraplength=300)  # , width=30
-#     label3.grid(row=1, column=0)
-#     root.mainloop()
-# else:
-#     plt.figure(1)
-#     plt.subplot(121)
-#     plt.imshow(new_img)
-#     plt.subplot(122)
-#     plt.imshow(test_wm)
-#     plt.show()
+        frame_r = tk.Frame(master=root, relief=tk.RAISED, borderwidth=1)
+        frame_r.grid(row=0, column=1)
+        _test_wm = Image.fromarray(test_wm)
+        _photo = ImageTk.PhotoImage(_test_wm)
+        label2 = tk.Label(master=frame_r, image=_photo, bg='gray')
+        label2.grid(row=0, column=0)
+        # 这个text本来是用来显示溯源结果的，也就是上面注释掉的代码里的output，不过都删掉了，我就改成水印了
+        label3 = tk.Label(master=frame_r, text="水印", justify=tk.LEFT, wraplength=300)  # , width=30
+        label3.grid(row=1, column=0)
+        # 添加confidence值显示
+        label4 = tk.Label(master=frame_r, text=f"置信度: {results[0]['confidence'][0]:.4f}", justify=tk.LEFT, wraplength=300)
+        label4.grid(row=2, column=0)
+        root.mainloop()
+    else:
+        plt.figure(1)
+        plt.subplot(121)
+        plt.imshow(new_img)
+        plt.subplot(122)
+        plt.imshow(test_wm)
+        plt.show()
+else:
+    sys.exit()
