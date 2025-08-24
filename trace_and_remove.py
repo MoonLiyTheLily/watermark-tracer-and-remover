@@ -281,7 +281,8 @@ if __name__ == "__main__":
     mask = np.zeros(img_for_cv.shape[:2], dtype=np.uint8)
     
     # print(f"掩码范围: [{start_row}:{end_row}, {start_col}:{end_col}]")
-    # 操死你妈的，这个几把是反过来的，之前得的那个是xy，这个是yx，1000（横向长度）他妈的是写在后面的，鸡巴opencv，我草泥马
+    # 这个是反过来的，之前得的那个是xy，这个是yx，1000（横向长度）是写在后面的
+    # opencv真是独特呢
     mask[int(results[0]['ymin'][0]):int(results[0]['ymax'][0]), int(results[0]['xmin'][0]):int(results[0]['xmax'][0])] = 255
     # mask[40:152, 1911:2096] = 255
     
@@ -354,7 +355,7 @@ if __name__ == "__main__":
 
 # 展示功能，已经用原始的OpenCV代替
 # 展示
-if args.show is True:
+if 'args' in locals() and args.show is True:
     new_img = np.array(imgs[0])
     for point in box:
         rr, cc = draw.rectangle_perimeter(point[:2], end=point[2:], shape=imgs[0].size)
